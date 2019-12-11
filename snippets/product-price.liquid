@@ -1,0 +1,102 @@
+{% comment %}
+    Renders a list of product's price (regular, sale, unit)
+    Accepts:
+    - variant: {Object} Variant Liquid object (optional)
+    - product: {Object} Product Liquid object (optional)
+    - show_vendor: {Boolean} Show the product's vendor depending on the section setting (optional)
+
+    Usage:
+    {% include 'product-price', variant: current_variant, product: product %}
+{% endcomment %}
+{% if variant.title %}
+  {%- assign compare_at_price = variant.compare_at_price -%}
+  {%- assign price = variant.price -%}
+  {%- assign available = variant.available -%}
+{% else %}
+  {%- assign compare_at_price = 1999 -%}
+  {%- assign price = 1999 -%}
+  {%- assign available = true -%}
+{% endif %}
+
+{%- assign money_price = price | money -%}
+
+<dl class="price
+  {% if available == false %} price--sold-out {% endif %}
+  {% if available and compare_at_price > price %} price--on-sale {% endif %}
+  {% if available and variant.unit_price_measurement %} price--unit-available {% endif %}"
+  data-price
+>
+
+  {% if show_vendor and product %}
+    <div class="price__vendor">
+      <dt>
+        <span class="visually-hidden">{{ 'products.product.vendor' | t }}</span>
+      </dt>
+      <dd>
+        {{ product.vendor }}
+      </dd>
+    </div>
+  {% endif %}
+
+  <div class="price__regular">
+    <dt>
+      <span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}</span>
+    </dt>
+    <dd>
+      <span class="price-item price-item--regular" data-regular-price>
+        {{ money_price }}
+      </span>
+    </dd>
+  </div>
+  <div class="price__sale">
+    <dt>
+      <span class="visually-hidden visually-hidden--inline">{{ 'products.product.regular_price' | t }}</span>
+    </dt>
+    <dd>
+      <s class="price-item price-item--regular" data-regular-price>
+        {{ compare_at_price | money }}
+      </s>
+    </dd>
+    <dt>
+      <span class="visually-hidden visually-hidden--inline">{{ 'products.product.sale_price' | t }}</span>
+    </dt>
+    <dd>
+      <span class="price-item price-item--sale" data-sale-price>
+        {{ money_price }}
+      </span>
+      <span class="price-item__label price-item__label--sale" aria-hidden="true">{{ 'products.product.on_sale' | t }}</span>
+    </dd>
+  </div>
+  <div class="price__unit">
+    <dt>
+      <span class="visually-hidden visually-hidden--inline">{{ 'products.product.unit_price_label' | t }}</span>
+    </dt>
+    <dd class="price-unit-price">
+      {%- capture unit_price_separator -%}
+        <span aria-hidden="true">/</span><span class="visually-hidden">{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+      {%- endcapture -%}
+      {%- capture unit_price_base_unit -%}
+        <span data-unit-price-base-unit>
+          {%- if available and variant.unit_price_measurement -%}
+            {%- if variant.unit_price_measurement.reference_value != 1 -%}
+              {{- variant.unit_price_measurement.reference_value -}}
+            {%- endif -%}
+            {{ variant.unit_price_measurement.reference_unit }}
+          {%- endif -%}
+        </span>
+      {%- endcapture -%}
+
+      <span data-unit-price>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+    </dd>
+  </div>
+  <div class="price__availability">
+    <dt>
+      <span class="visually-hidden visually-hidden--inline">{{ 'products.product.availability' | t }}</span>
+    </dt>
+    <dd>
+      <span class="price-item price-item--regular">
+        {{ 'products.product.sold_out' | t }}
+      </span>
+    </dd>
+  </div>
+</dl>
