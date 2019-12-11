@@ -14,6 +14,8 @@
   </style>
 {% endif %}
 
+<script defer type="module" src="{{ "app.bundle.js" | asset_url }}"></script>
+
 <div data-section-id="{{ section.id }}" data-section-type="header-section">
   {% if section.settings.message %}
     {% if section.settings.home_page_only == false or request.page_type == 'index' %}
@@ -136,7 +138,7 @@
           {% endif %}
 
           <a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart">
-            {% include 'icon-cart' %}
+            {% include 'react-popup' %}
             <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
             <div id="CartCount" class="site-header__cart-count{% if cart.item_count == 0 %} hide{% endif %}" data-cart-count-bubble>
               <span data-cart-count>{{ cart.item_count }}</span>
@@ -328,6 +330,7 @@
     }
   </script>
 {% endif %}
+
 
 {% schema %}
 {
