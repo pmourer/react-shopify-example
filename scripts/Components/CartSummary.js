@@ -3,7 +3,8 @@ import React from "react"
 export const CartSummary = ({ items, total }) => (
   <div
     style={{
-      textAlign: "center"
+      textAlign: "center",
+      padding: "5%"
     }}
   >
     {items > 0 ? (
