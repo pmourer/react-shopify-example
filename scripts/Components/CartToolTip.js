@@ -26,23 +26,19 @@ const getCart = () => {
   }).then(data => data.json())
 }
 
-export const CartToolTip = ({ cartUrl }) => {
+export const CartToolTip = () => {
   const [cart, setCart] = useState(null)
   useEffect(() => {
     getCart().then(cart => setCart(cart))
   }, [])
   return (
     <Popup
-      trigger={<a href={cartUrl}>{cartIcon}</a>}
+      trigger={<a href={'/cart'}>{cartIcon}</a>}
       on={["hover", "click"]}
       position="bottom right"
     >
       {cart ? (
-        <CartSummary
-          items={cart.item_count}
-          total={cart.total_price}
-          cartUrl={cartUrl}
-        />
+        <CartSummary items={cart.item_count} total={cart.total_price} />
       ) : (
         <p>Fetching cart...</p>
       )}

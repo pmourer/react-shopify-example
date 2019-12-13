@@ -1,6 +1,6 @@
 import React from "react"
 
-export const CartSummary = ({ items, total, cartUrl }) => (
+export const CartSummary = ({ items, total }) => (
   <div
     style={{
       textAlign: "center"
@@ -10,7 +10,7 @@ export const CartSummary = ({ items, total, cartUrl }) => (
       <>
         <p>Items: {items}</p>
         <p>Total: ${total / 100}</p>
-        <a href={cartUrl} className="btn">
+        <a href={'/cart'} className="btn">
           Go to Cart
         </a>
       </>
