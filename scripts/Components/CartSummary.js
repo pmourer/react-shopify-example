@@ -6,10 +6,16 @@ export const CartSummary = ({ items, total, cartUrl }) => (
       textAlign: "center"
     }}
   >
-    <p>Items: {items}</p>
-    <p>Total: ${total / 100}</p>
-    <a href={cartUrl} className="btn">
-      Go to Cart
-    </a>
+    {items > 0 ? (
+      <>
+        <p>Items: {items}</p>
+        <p>Total: ${total / 100}</p>
+        <a href={cartUrl} className="btn">
+          Go to Cart
+        </a>
+      </>
+    ) : (
+      <p>There's nothing in your cart!</p>
+    )}
   </div>
 )
