@@ -33,9 +33,15 @@ export const CartToolTip = () => {
   }, [])
   return (
     <Popup
-      trigger={<a href={'/cart'}>{cartIcon}</a>}
+      trigger={<a href={"/cart"}>{cartIcon}</a>}
       on={["hover", "click"]}
       position="bottom right"
+      contentStyle={{
+        width: "initial",
+        maxWidth: "400px",
+        minWidth: "200px",
+        padding: "25%"
+      }}
     >
       {cart ? (
         <CartSummary items={cart.item_count} total={cart.total_price} />
