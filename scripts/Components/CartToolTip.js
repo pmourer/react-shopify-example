@@ -37,7 +37,7 @@ export const CartToolTip = () => {
       on={["hover", "click"]}
       position="bottom right"
       contentStyle={{
-        width: "initial",
+        width: "min-content",
         maxWidth: "400px",
         minWidth: "200px",
         padding: "25%"
