@@ -20,16 +20,16 @@ const getCart = () => {
     headers: {
       "Content-Type": "application/json",
       pragma: "no-cache",
-      "cache-control": "no-cache"
+      "cache-control": "no-cache",
     },
-    credentials: "same-origin"
-  }).then(data => data.json())
+    credentials: "same-origin",
+  }).then((data) => data.json())
 }
 
-export const CartToolTip = () => {
+export const CartToolTip = ({ phone, moneyFormat }) => {
   const [cart, setCart] = useState(null)
   useEffect(() => {
-    getCart().then(cart => setCart(cart))
+    getCart().then((cart) => setCart(cart))
   }, [])
   return (
     <Popup
@@ -40,11 +40,16 @@ export const CartToolTip = () => {
         width: "min-content",
         maxWidth: "400px",
         minWidth: "200px",
-        padding: "25%"
+        padding: "25%",
       }}
     >
       {cart ? (
-        <CartSummary items={cart.item_count} total={cart.total_price} />
+        <CartSummary
+          items={cart.item_count}
+          total={cart.total_price}
+          phone={phone}
+          moneyFormat={moneyFormat}
+        />
       ) : (
         <p>Fetching cart...</p>
       )}

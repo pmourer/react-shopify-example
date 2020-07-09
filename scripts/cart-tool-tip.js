@@ -4,4 +4,8 @@ import { CartToolTip } from "./Components/CartToolTip"
 
 const rootEl = document.getElementById("react-cart-tool-tip")
 
-rootEl && ReactDOM.render(<CartToolTip />, rootEl)
+if (rootEl) {
+    const moneyFormat = rootEl.dataset.moneyFormat
+    const phone = rootEl.dataset.phone
+    ReactDOM.render(<CartToolTip phone={phone} moneyFormat={moneyFormat} />, rootEl)
+}
