@@ -1,7 +1,9 @@
-{% comment %}
-
-Root element for react tool tip
-
-{% endcomment %}
+{% comment %} Root element for react tool tip {% endcomment %}
 
 <div id="react-cart-tool-tip"></div>
+
+<script type="text/javascript">
+  window.ShopData = window.ShopData || {}
+  window.ShopData.moneyFormat = "{{ shop.money_format }}"
+  window.ShopData.phone = "{{ shop.phone }}"
+</script>
